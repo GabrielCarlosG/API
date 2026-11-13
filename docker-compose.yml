@@ -1,0 +1,12 @@
+services:
+  db:
+    image: ???          # imagem oficial do Postgres, com versão fixada
+    environment:
+      ???               # 3 variáveis que a imagem exige para criar usuário, senha e banco
+    ports:
+      - "???:???"       # porta_da_sua_máquina:porta_do_container
+    volumes:
+      - ???:???         # volume nomeado -> pasta de dados do Postgres no container
+
+volumes:
+  ???                   # declaração do volume nomeado
