@@ -1,12 +1,13 @@
 services:
   db:
-    image: ???          # imagem oficial do Postgres, com versão fixada
+    image: postgres:18.7
     environment:
-      ???               # 3 variáveis que a imagem exige para criar usuário, senha e banco
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?senha vazia}
+      POSTGRES_USER: ${DB_USER:?falta usuario}
+      POSTGRES_DB: ${DB_NAME:?falta o nome do banco}
     ports:
-      - "???:???"       # porta_da_sua_máquina:porta_do_container
+      - "5432:5432" 
     volumes:
-      - ???:???         # volume nomeado -> pasta de dados do Postgres no container
-
+      - dados_postgres:/var/lib/postgresql 
 volumes:
-  ???                   # declaração do volume nomeado
+  dados_postgres: 
