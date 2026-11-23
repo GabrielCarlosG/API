@@ -11,23 +11,30 @@ db_url = os.getenv("DATABASE_URL")
 if not db_url:
     raise RuntimeError("A variável de ambiente DATABASE_URL não foi definida.")
 
-def conectar(db):
-    with psycopg.connect(db,hostaddr="127.0.0.1",
-                             connect_timeout=30,) as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT 1;")
-                print(cur.fetchone())
+# def conectar(db):
+#     with psycopg.connect(db,hostaddr="127.0.0.1",
+#                              connect_timeout=30,) as conn:
+#             with conn.cursor() as cur:
+#                 cur.execute("SELECT 1;")
+#                 print(cur.fetchone())
 
 def get_connection(db) -> psycopg.Connection:
     with psycopg.connect(db,hostaddr="127.0.0.1",
                                  connect_timeout=30,) as conn:
+                conn.execute("SELECT 1")
+                print(conn.fetchone())
                 with conn.cursor() as cur:
                     cur.execute("SELECT 1;")
                     print(cur.fetchone())
+                print(conn._closed)
+                conn.execute("SELECT 1")
+                print(conn.fetchone())
+    print(conn._closed)
     return conn
 
 try:
-    get_connection(db_url)
+   teste = get_connection(db_url)
+   print(teste)
         
 except psycopg.errors.ConnectionTimeout as e:
     # Falha específica de tempo limite ao tentar conectar (psycopg 3)
